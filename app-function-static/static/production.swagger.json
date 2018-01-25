@@ -1,0 +1,192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Cyber Ninjas API for creating invoices Automatically",
+    "version": "1.0.0",
+    "title": "Bill"
+  },
+  "host": "bill-backend.azurewebsites.net",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "creatInvoice",
+      "description": "API for creating an invoice"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/1.0/createInvoice": {
+      "post": {
+        "tags": [
+          "createInvoice"
+        ],
+        "summary": "Adds a new draft invoice for the given client.",
+        "description": "",
+        "operationId": "createInvoice",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Details for creating an invoice",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Engagement"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully Created Invoice",
+            "schema": {
+              "$ref": "#/definitions/successInvoice"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/1.0/sendInvoice": {
+      "get": {
+        "tags": [
+          "sendInvoice"
+        ],
+        "summary": "sendInvoice - Sends the Invoice to the Respective Parties.",
+        "description": "",
+        "operationId": "sendInvoice",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "InvoiceID",
+            "description": "Xero's InvoiceID for the Invoice to send.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ListItemID",
+            "description": "ID for the SharePoint List item in the Engagement Schedule.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully Sent The Message",
+            "schema": {
+              "$ref": "#/definitions/sendInvoice"
+            }
+          },
+          "405": {
+            "description": "Invalid Input",
+            "schema": {
+              "$ref": "#/definitions/sendInvoice"
+            }
+          },
+          "500": {
+            "description": "Something else bad happened",
+            "schema": {
+              "$ref": "#/definitions/sendInvoice"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "Engagement": {
+      "type": "object",
+      "required": [
+        "client",
+        "title",
+        "testType",
+        "startDate",
+        "endDate"
+      ],
+      "properties": {
+        "client": {
+          "type": "string"
+        },
+        "purchaseOrder": {
+          "type": "string"
+        },
+        "caseNumber": {
+          "type": "string"
+        },
+        "customer": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "testType": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "pocName": {
+          "type": "string"
+        },
+        "pocEmail": {
+          "type": "string"
+        }
+      }
+    },
+    "successInvoice": {
+      "type": "object",
+      "properties": {
+        "invoiceId": {
+          "type": "string"
+        }
+      }
+    },
+    "sendInvoice": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

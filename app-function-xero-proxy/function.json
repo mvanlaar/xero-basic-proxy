@@ -1,0 +1,18 @@
+{
+  "disabled":false,
+  "bindings":[
+    {
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "authLevel": "anonymous",
+      "methods": [ "GET", "PUT", "POST", "DELETE" ],
+      "route": "xero/{*URL}"
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}
