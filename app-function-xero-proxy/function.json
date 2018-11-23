@@ -7,7 +7,7 @@
       "direction": "in",
       "authLevel": "anonymous",
       "methods": [ "GET", "PUT", "POST", "DELETE" ],
-      "route": "xero/{*URL}"
+      "route": "mailplus/{*URL}"
     },
     {
       "name": "res",
